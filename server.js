@@ -18,12 +18,16 @@ app.use(express.json());
 
 
 // db config
-const mongoURI = '';
+const mongoURI = 'mongodb+srv://admin:dMyibLWe2RBAco9K@cluster0.xsfbs.mongodb.net/imessagebackend?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+});
+
+mongoose.connection.once('open', () => {
+    console.log("DB is connected 🚀");
 })
 
 // api routes
