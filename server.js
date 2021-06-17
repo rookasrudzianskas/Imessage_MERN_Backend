@@ -34,6 +34,18 @@ mongoose.connection.once('open', () => {
 
 app.get('/', ((req, res) => res.status(200).send("Backend is working on 🚀")));
 
+app.post('/new/conversation', (req, res) => {
+    const dbData = req.body;
+
+    mongoData.create(dbData, (err, data) => {
+        if(err) {
+            res.status(300).send(err);
+        } else {
+            res.status(201).send(data);
+        }
+    })
+})
+
 // listen
 
 app.listen(port, () => console.log(`listening on port ${port}`));
