@@ -71,19 +71,28 @@ app.get('/get/conversationList', (req, res) => {
         if(err) {
             res.status(500).send(err);
         } else {
+            // sorting out
             data.sort((b, a) => {
                 return a.timestamp - b.timestamp;
             });
 
             let conversations = [];
 
+            // forming what comes back
             data.map((conversationData) => {
                 const conversationInfo = {
                     id: conversationData._id,
                     name: conversationData.chatName,
                     timestamp: conversationData.conversation[0].timestamp
                 }
+
+                // writing to the array
+
+                conversations.push(conversationInfo);
             })
+
+            // sending back
+            res.status(200).send(conversations);
         }
     })
 })
