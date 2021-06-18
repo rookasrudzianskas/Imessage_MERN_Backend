@@ -66,6 +66,28 @@ app.post('/new/message', (req, res) => {
     )
 })
 
+app.get('/get/conversationList', (req, res) => {
+    mongoData.find((err, data) => {
+        if(err) {
+            res.status(500).send(err);
+        } else {
+            data.sort((b, a) => {
+                return a.timestamp - b.timestamp;
+            });
+
+            let conversations = [];
+
+            data.map((conversationData) => {
+                const conversationInfo = {
+                    id: conversationData._id,
+                    name: conversationData.chatName,
+                    timestamp: conversationData.conversation[0].timestamp
+                }
+            })
+        }
+    })
+})
+
 // listen
 
 app.listen(port, () => console.log(`listening on port ${port} 🚀`));
