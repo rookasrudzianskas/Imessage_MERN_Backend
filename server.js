@@ -112,6 +112,24 @@ app.get('/get/conversation', (req, res) => {
     })
 })
 
+app.get('/get.lastMessage', (req, res) => {
+    const id = req.query.id;
+
+    mongoData.find({ _id: id }, (err, data) => {
+        if(err) {
+            res.status(500).send(err);
+        } else {
+            let convData = data[0].conversation;
+
+            convData.sort((b, a) => {
+                return a.timestamp - b.timestamp;
+            });
+
+            res.status(200).send(convData[0])
+        }
+    })
+})
+
 // listen
 
 app.listen(port, () => console.log(`listening on port ${port} 🚀`));
