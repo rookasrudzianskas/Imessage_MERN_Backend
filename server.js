@@ -49,6 +49,8 @@ app.post('/new/conversation', (req, res) => {
 
 app.post('/new/message', (req, res) => {
     mongoData.update(
+        // id as the query, to which conversation
+        // and then push everything to that conversation the body
         { _id: req.query.id },
         {$push: {conversation: req.body }},
         (err, data) => {
@@ -66,7 +68,7 @@ app.post('/new/message', (req, res) => {
 
 // listen
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`listening on port ${port} 🚀`));
 
 // password
 // dMyibLWe2RBAco9K
