@@ -47,6 +47,23 @@ app.post('/new/conversation', (req, res) => {
     })
 })
 
+app.post('/new/message', (req, res) => {
+    mongoData.update(
+        { _id: req.query.id },
+        {$push: {conversation: req.body }},
+        (err, data) => {
+            if(err) {
+                console.log('Error saving the message');
+                console.log(err);
+
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    )
+})
+
 // listen
 
 app.listen(port, () => console.log(`listening on port ${port}`));
