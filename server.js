@@ -97,6 +97,21 @@ app.get('/get/conversationList', (req, res) => {
     })
 })
 
+
+// her we get all the conversations
+
+app.get('/get/conversation', (req, res) => {
+    const id = req.query.id;
+
+    mongoData.find({ _id: id}, (err, data) => {
+        if(err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    })
+})
+
 // listen
 
 app.listen(port, () => console.log(`listening on port ${port} 🚀`));
