@@ -131,6 +131,7 @@ app.get('/get/lastMessage', (req, res) => {
             // the last message
             // does not work
             // fixed
+            // connecting backend to front end
             res.status(200).send(convData[0]);
         }
     })
