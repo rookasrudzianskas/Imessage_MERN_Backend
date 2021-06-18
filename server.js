@@ -112,8 +112,10 @@ app.get('/get/conversation', (req, res) => {
     })
 })
 
-app.get('/get.lastMessage', (req, res) => {
+app.get('/get/lastMessage', (req, res) => {
     const id = req.query.id;
+
+    // should get messages by the id
 
     mongoData.find({ _id: id }, (err, data) => {
         if(err) {
@@ -125,7 +127,8 @@ app.get('/get.lastMessage', (req, res) => {
                 return a.timestamp - b.timestamp;
             });
 
-            res.status(200).send(convData[0])
+            // sorted data, and we send just the last message, not all of them.
+            res.status(200).send(convData[0]);
         }
     })
 })
