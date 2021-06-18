@@ -129,6 +129,7 @@ app.get('/get/lastMessage', (req, res) => {
 
             // sorted data, and we send just the last message, not all of them.
             // the last message
+            // does not work
             res.status(200).send(convData[0]);
         }
     })
