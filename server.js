@@ -37,6 +37,21 @@ mongoose.connect(mongoURI, {
 mongoose.connection.once('open', () => {
     console.log("DB CONNECTION");
 
+    const changeStream = mongoose.connection.collection('conversations').watch();
+
+    changeStream.on('change', (change) => {
+        if(change.operationType === 'insert') {
+            pusher.trigger('chats', 'newChat', {
+                'change': change
+            })
+        } else if(change.operationType === 'update') {
+            pusher.trigger('messages', 'newMessage', {
+                'change': change
+                })
+            } else {
+            console.log('error trigerring pusher');
+        }
+        })
 })
 
 // api routes
